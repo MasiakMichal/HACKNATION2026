@@ -1,0 +1,79 @@
+Pełnomocnictwo:
+
+{
+  "mocodawca": [
+    {
+      "data": {
+        "imie_nazwisko": null,
+        "krs": "10 cyfr lub null",
+        "nazwa": "Pełna nazwa mocodawcy",
+        "nip": "10 cyfr lub null",
+        "typ": "osoba_prawna"
+      },
+      "podpisujacy": [
+        {
+          "imie_nazwisko": "Imię i nazwisko osoby podpisującej"
+        }
+      ]
+    }
+  ],
+  "pelnomocnicy": [
+    {
+      "imie_nazwisko": "Imię i nazwisko pełnomocnika w mianowniku",
+      "pesel": 85120133547
+    }
+  ]
+}
+
+Potwierdzenie przelewu: 
+{
+  "przelew_bankowy": {
+    "data_operacji": "YYYY-MM-DD",
+    "kwota": 10000.00,
+    "na_rachunek": "26 cyfr bez PL i bez spacji",
+    "numer_transakcji": null,
+    "tytul": "Dokładny tytuł przelewu",
+    "z_rachunku": "26 cyfr bez PL i bez spacji"
+  }
+}
+
+
+Odwołanie :
+{
+  "OdwolanieKIO": {
+    "data": "YYYY-MM-DD",
+    "czynnosc_dzien": "YYYY-MM-DD lub null",
+    "czynnosc_powod_id": 4,
+    "czynnosc_opis": "Publikacja specyfikacji warunków zamówienia (SWZ)",
+    "miejscowosc": "Miejscowość"
+  },
+  "Odwolujacy": [
+    {
+      "krs": "10 cyfr lub null",
+      "nazwa": "Pełna nazwa Odwołującego (lub Lidera konsorcjum)",
+      "nip": "10 cyfr lub null",
+      "regon": "9 lub 14 cyfr lub null",
+      "przez-pelnomocnika": 1,
+      "pelnomocnik": {
+        "imie_nazwisko": "Imię i nazwisko bez tytułów adw./r.pr.",
+        "nazwa": "Nazwa kancelarii lub null",
+        "mail": "adres@email.pl lub null"
+      }
+    }
+  ],
+  "Zamawiajacy": [
+    {
+      "krs": "10 cyfr lub null",
+      "nazwa": "Pełna nazwa Zamawiającego",
+      "nip": "10 cyfr lub null",
+      "regon": "9 lub 14 cyfr lub null",
+      "prowadzacy_postepowanie": null
+    }
+  ],
+  "ZamowieniePubliczne": {
+    "numer_bzp": "YYYY/BZP######## bez spacji lub null",
+    "numer_postepowania": "numer referencyjny lub null",
+    "numer_ted": "NNNNNN-YYYY lub null",
+    "tytul": "Tytuł zamówienia lub null"
+  }
+}

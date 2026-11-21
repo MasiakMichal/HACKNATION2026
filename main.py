@@ -1,7 +1,22 @@
+import json
+import os
+import re
 import tkinter as tk
 from tkinter import ttk, filedialog
 from tkinterdnd2 import TkinterDnD, DND_FILES
 from pypdf import PdfReader
+from algorytm import Algorytm
+
+
+def wyczysc(obj):
+    """Zamienia nowe linie i wielokrotne spacje w tekstach na jedną spację."""
+    if isinstance(obj, str):
+        return re.sub(r"\s+", " ", obj).strip()
+    if isinstance(obj, list):
+        return [wyczysc(x) for x in obj]
+    if isinstance(obj, dict):
+        return {k: wyczysc(v) for k, v in obj.items()}
+    return obj
 
 
 class Okno(TkinterDnD.Tk):
@@ -9,11 +24,11 @@ class Okno(TkinterDnD.Tk):
         super().__init__()
         self.title("Drop box")
         self.geometry("600x670")
-        
-        self.sciezka = None   # tu ląduje wczytany plik
-        self.folder = None
 
-        # --- NOWE: wybór folderu ---
+        self.sciezka = None   # tu ląduje wczytany plik
+        self.folder = None    # tu ląduje wybrany folder
+
+        # --- wybór folderu ---
         self.przycisk_folder = ttk.Button(
             self, text="Wybierz folder", command=self.wybierz_folder
         )
@@ -26,7 +41,7 @@ class Okno(TkinterDnD.Tk):
         self.wybor = tk.StringVar()
         self.combo = ttk.Combobox(
             self, textvariable=self.wybor,
-            values=["przelew", "gotówka", "karta"],
+            values=["przelew", "odwołanie", "pełnomocnictwo"],
             state="readonly",
         )
         self.combo.current(0)
@@ -53,10 +68,9 @@ class Okno(TkinterDnD.Tk):
         self.przycisk = ttk.Button(self, text="Konwertuj", command=self.uruchom)
         self.przycisk.pack(pady=5)
 
-        self.wynik = ttk.Label(self, text="")
+        self.wynik = ttk.Label(self, text="", wraplength=550)
         self.wynik.pack(pady=(0, 15))
 
-    # NOWE: metoda wyboru folderu
     def wybierz_folder(self):
         folder = filedialog.askdirectory()
         if folder:                      # pusty tekst = kliknięto Anuluj
@@ -80,24 +94,50 @@ class Okno(TkinterDnD.Tk):
         self.info.config(text=f"Wczytano: {sciezka}")
 
     def uruchom(self):
-        if not self.sciezka or self.sciezka[-3:] != "pdf"  :
-            self.wynik.config(text=" wczytaj plik pdf!")
+        if not self.folder:
+            self.wynik.config(text="Najpierw wybierz folder!")
+            return
+
+        if not self.sciezka or not self.sciezka.lower().endswith(".pdf"):
+            self.wynik.config(text="Wczytaj plik pdf!")
             return
 
         opcja = self.combo.get()
 
-        # TODO: tu podepniesz swoją logikę, np.:
-        # rezultat = twoja_funkcja(self.sciezka, opcja)
-        reader = PdfReader(self.sciezka)
-        page = reader.pages[0]
-        
-        rezultat = f"(placeholder) plik: {self.sciezka}, opcja: {opcja}"
+        self.wynik.config(text="Przetwarzam...")
+        self.update_idletasks()   # odświeża okno przed zapytaniem do API
 
-        self.wynik.config(text=rezultat)
-        dane_dla_algorytmu=[opcja,page.extract_text()]
+        try:
+            reader = PdfReader(self.sciezka)
+            tekst = reader.pages[0].extract_text()
 
-        with open("test.txt","a") as f:
-            f.write(page.extract_text())
+            odpowiedz = Algorytm().ask(opcja, tekst)
+            print(odpowiedz)      # podgląd w terminalu, co zwrócił model
+
+            try:
+                dane = json.loads(odpowiedz)
+            except json.JSONDecodeError:
+                # model dodał coś wokół JSON-a, wycinamy od { do }
+                dane = json.loads(odpowiedz[odpowiedz.find("{"):odpowiedz.rfind("}") + 1])
+
+            if isinstance(dane, str):     # JSON zakodowany drugi raz
+                dane = json.loads(dane)
+
+            dane = wyczysc(dane)          # usuwa \n z tekstów
+        except json.JSONDecodeError:
+            self.wynik.config(text="Model nie zwrócił poprawnego JSON-a (patrz terminal)")
+            return
+        except Exception as e:
+            self.wynik.config(text=f"Błąd: {e}")
+            return
+
+        nazwa = os.path.splitext(os.path.basename(self.sciezka))[0] + ".json"
+        plik_json = os.path.join(self.folder, nazwa)
+
+        with open(plik_json, "w", encoding="utf-8") as plik:
+            json.dump(dane, plik, ensure_ascii=False, indent=2)
+
+        self.wynik.config(text=f"Zapisano: {plik_json}")
 
 
 if __name__ == "__main__":

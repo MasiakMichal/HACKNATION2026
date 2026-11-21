@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 from groq import Groq
 
@@ -10,28 +11,27 @@ class Algorytm:
         self.client = Groq(api_key=api_key or os.getenv("GROQ_API_KEY"))
         self.model = "qwen/qwen3.8-27b"
 
-    def ask(self, question):
+    def ask(self, opcja, tekst):
+        # .read() zwraca ZAWARTOŚĆ pliku (wcześniej było tylko "f")
+        with open("rozkaz.txt", "r", encoding="utf-8") as f:
+            rozkaz = f.read()
+
         response = self.client.chat.completions.create(
             model=self.model,
             messages=[
                 {
                     "role": "system",
-                    "content": "Jesteś pomocnym asystentem AI. Odpowiadasz po polsku."
+                    "content": (
+                        f"{rozkaz}\n\n"
+                        f"Wybrana opcja: {opcja}\n"
+                        "Zwróć wyłącznie poprawny kod JSON, bez komentarzy "
+                        "i bez bloków ```."
+                    ),
                 },
-                {
-                    "role": "user",
-                    "content": question
-                }
-            ]
+                {"role": "user", "content": tekst},
+            ],
         )
 
-        return response.choices[0].message.content
-
-
-# Klucz pobierze się automatycznie z pliku .env
-bot = Algorytm()
-
-# Pytanie do Algorytmu
-answer = bot.ask("Cześć! Co potrafisz?")
-
-print(answer)
+        odpowiedz = response.choices[0].message.content
+        # usuwa ewentualne "myślenie" modelu w tagach <think>...</think>
+        return re.sub(r"<think>.*?</think>", "", odpowiedz, flags=re.DOTALL).strip()
