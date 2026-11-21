@@ -1,15 +1,26 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 from tkinterdnd2 import TkinterDnD, DND_FILES
-# from logika import twoja_funkcja   # <- tu zaimportujesz swoją logikę
+from pypdf import PdfReader
+
 
 class Okno(TkinterDnD.Tk):
     def __init__(self):
         super().__init__()
         self.title("Drop box")
-        self.geometry("400x370")
-
+        self.geometry("600x670")
+        
         self.sciezka = None   # tu ląduje wczytany plik
+        self.folder = None
+
+        # --- NOWE: wybór folderu ---
+        self.przycisk_folder = ttk.Button(
+            self, text="Wybierz folder", command=self.wybierz_folder
+        )
+        self.przycisk_folder.pack(pady=(15, 0))
+
+        self.etykieta_folder = ttk.Label(self, text="Nie wybrano folderu")
+        self.etykieta_folder.pack()
 
         # --- combobox ---
         self.wybor = tk.StringVar()
@@ -39,11 +50,18 @@ class Okno(TkinterDnD.Tk):
         self.info.pack(pady=(0, 5))
 
         # --- przycisk na dole + miejsce na wynik ---
-        self.przycisk = ttk.Button(self, text="Uruchom", command=self.uruchom)
+        self.przycisk = ttk.Button(self, text="Konwertuj", command=self.uruchom)
         self.przycisk.pack(pady=5)
 
         self.wynik = ttk.Label(self, text="")
         self.wynik.pack(pady=(0, 15))
+
+    # NOWE: metoda wyboru folderu
+    def wybierz_folder(self):
+        folder = filedialog.askdirectory()
+        if folder:                      # pusty tekst = kliknięto Anuluj
+            self.folder = folder
+            self.etykieta_folder.config(text=folder)
 
     def po_wyborze(self, event):
         self.etykieta.config(text=f"Wybrano: {self.combo.get()}")
@@ -62,18 +80,25 @@ class Okno(TkinterDnD.Tk):
         self.info.config(text=f"Wczytano: {sciezka}")
 
     def uruchom(self):
-        """Tu wpiszesz swoją funkcję. Wywoła się po kliknięciu przycisku."""
-        if not self.sciezka:
-            self.wynik.config(text="Najpierw wczytaj plik!")
+        if not self.sciezka or self.sciezka[-3:] != "pdf"  :
+            self.wynik.config(text=" wczytaj plik pdf!")
             return
 
         opcja = self.combo.get()
 
         # TODO: tu podepniesz swoją logikę, np.:
         # rezultat = twoja_funkcja(self.sciezka, opcja)
+        reader = PdfReader(self.sciezka)
+        page = reader.pages[0]
+        
         rezultat = f"(placeholder) plik: {self.sciezka}, opcja: {opcja}"
 
         self.wynik.config(text=rezultat)
+        dane_dla_algorytmu=[opcja,page.extract_text()]
+
+        with open("test.txt","a") as f:
+            f.write(page.extract_text())
+
 
 if __name__ == "__main__":
     Okno().mainloop()
