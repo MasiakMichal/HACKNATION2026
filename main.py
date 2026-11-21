@@ -9,7 +9,6 @@ from algorytm import Algorytm
 
 
 def wyczysc(obj):
-    """Zamienia nowe linie i wielokrotne spacje w tekstach na jedną spację."""
     if isinstance(obj, str):
         return re.sub(r"\s+", " ", obj).strip()
     if isinstance(obj, list):
@@ -25,10 +24,9 @@ class Okno(TkinterDnD.Tk):
         self.title("Drop box")
         self.geometry("600x670")
 
-        self.sciezka = None   # tu ląduje wczytany plik
-        self.folder = None    # tu ląduje wybrany folder
+        self.sciezka = None   
+        self.folder = None    
 
-        # --- wybór folderu ---
         self.przycisk_folder = ttk.Button(
             self, text="Wybierz folder", command=self.wybierz_folder
         )
@@ -37,7 +35,6 @@ class Okno(TkinterDnD.Tk):
         self.etykieta_folder = ttk.Label(self, text="Nie wybrano folderu")
         self.etykieta_folder.pack()
 
-        # --- combobox ---
         self.wybor = tk.StringVar()
         self.combo = ttk.Combobox(
             self, textvariable=self.wybor,
@@ -51,7 +48,6 @@ class Okno(TkinterDnD.Tk):
         self.etykieta = ttk.Label(self, text="Wybrano: przelew")
         self.etykieta.pack()
 
-        # --- drop box ---
         self.strefa = tk.Label(
             self, text="Przeciągnij plik tutaj\nalbo kliknij, żeby wybrać",
             relief="groove", bd=2, height=6,
