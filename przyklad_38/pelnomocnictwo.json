@@ -1,0 +1,29 @@
+{
+  "mocodawca": [
+    {
+      "data": {
+        "imie_nazwisko": null,
+        "krs": "9992992231",
+        "nazwa": "Granitix Usługi S.A.",
+        "nip": "9993373158",
+        "typ": "osoba_prawna"
+      },
+      "podpisujacy": [
+        {
+          "imie_nazwisko": "Ryszard Nowakowicz"
+        },
+        {
+          "imie_nazwisko": "Jolanta Tomaszewski"
+        }
+      ]
+    }
+  ],
+  "pelnomocnicy": [
+    {
+      "imie_nazwisko": "Oliwia Wierzbicka"
+    },
+    {
+      "imie_nazwisko": "Jolanta Jabłończyk"
+    }
+  ]
+}
