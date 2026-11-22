@@ -1,38 +1,38 @@
 {
   "OdwolanieKIO": {
-    "data": null,
-    "czynnosc_dzien": "2026-03-20",
-    "czynnosc_powod_id": 9,
-    "czynnosc_opis": "Decyzja o unieważnieniu postępowania",
-    "miejscowosc": null
+    "data": "2026-08-24",
+    "czynnosc_dzien": "2026-08-11",
+    "czynnosc_powod_id": 4,
+    "czynnosc_opis": "Publikacja specyfikacji warunków zamówienia (SWZ)",
+    "miejscowosc": "Katowice"
   },
   "Odwolujacy": [
     {
-      "krs": "9999405188",
-      "nazwa": "Belmoria Rozwiązania S.A.",
-      "nip": "9999284065",
-      "regon": "999642785",
+      "krs": "9992397370",
+      "nazwa": "Gildentia Wyposażenie sp. z o.o.",
+      "nip": "9995126748",
+      "regon": "999165641",
       "przez-pelnomocnika": 1,
       "pelnomocnik": {
-        "imie_nazwisko": "Aleksandra Marciniak",
-        "nazwa": "Kancelaria Adwokacka Spółka z ograniczoną odpowiedzialnością",
-        "mail": "biuro@poczta.example"
+        "imie_nazwisko": "Patrycja Furman",
+        "nazwa": "Kancelaria Radców Prawnych i Partnerzy",
+        "mail": "biuro@kontakt.example"
       }
     }
   ],
   "Zamawiajacy": [
     {
-      "krs": "9999716254",
-      "nazwa": "Aurelink Automatyka S.A.",
-      "nip": "9997518659",
-      "regon": "999184816",
+      "krs": "9997812714",
+      "nazwa": "Danevia Serwis sp. k.",
+      "nip": "9990342967",
+      "regon": "999118676",
       "prowadzacy_postepowanie": null
     }
   ],
   "ZamowieniePubliczne": {
-    "numer_bzp": "2026/BZP00999778",
-    "numer_postepowania": "ZS.791.2026",
-    "numer_ted": "999137-2026",
-    "tytul": "Zakup i dostawa sprzętu komputerowego wraz z oprogramowaniem oraz usługą wdrożenia"
+    "numer_bzp": null,
+    "numer_postepowania": "ZP.447.2026",
+    "numer_ted": "999512-2026",
+    "tytul": "Dostawa licencji oprogramowania do monitorowania infrastruktury i alarmowej"
   }
 }
