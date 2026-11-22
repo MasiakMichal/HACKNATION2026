@@ -1,0 +1,76 @@
+{
+  "przelew_bankowy": {
+    "data_operacji": "2026-10-15",
+    "kwota": 34.0,
+    "na_rachunek": "78716648769620797224712970",
+    "numer_transakcji": "CEN2610198812045",
+    "tytul": "opłata skarbowa od pełnomocnictwa dla Magdalena Wróblewska i Tomasz Kędzierski w postępowaniu przed KIO w przetargu ZP/PN/48/2026",
+    "z_rachunku": "54716496752472114180714012"
+  },
+  "Pełnomocnictwo": {
+    "mocodawca": [
+      {
+        "data": {
+          "imie_nazwisko": null,
+          "krs": null,
+          "nazwa": "Valtrix Systemy Informatyczne sp. z o.o.",
+          "nip": null,
+          "typ": "osoba_prawna"
+        },
+        "podpisujacy": [
+          {
+            "imie_nazwisko": null
+          }
+        ]
+      }
+    ],
+    "pelnomocnicy": [
+      {
+        "imie_nazwisko": "Magdalena Wróblewska",
+        "pesel": null
+      },
+      {
+        "imie_nazwisko": "Tomasz Kędzierski",
+        "pesel": null
+      }
+    ]
+  },
+  "Odwołanie": {
+    "OdwolanieKIO": {
+      "data": null,
+      "czynnosc_dzien": null,
+      "czynnosc_powod_id": null,
+      "czynnosc_opis": null,
+      "miejscowosc": null
+    },
+    "Odwolujacy": [
+      {
+        "krs": null,
+        "nazwa": "Valtrix Systemy Informatyczne sp. z o.o.",
+        "nip": null,
+        "regon": null,
+        "przez-pelnomocnika": 1,
+        "pelnomocnik": {
+          "imie_nazwisko": "Magdalena Wróblewska, Tomasz Kędzierski",
+          "nazwa": null,
+          "mail": null
+        }
+      }
+    ],
+    "Zamawiajacy": [
+      {
+        "krs": null,
+        "nazwa": "Regionalne Centrum Usług Medycznych sp. z o.o.",
+        "nip": null,
+        "regon": null,
+        "prowadzacy_postepowanie": null
+      }
+    ],
+    "ZamowieniePubliczne": {
+      "numer_bzp": null,
+      "numer_postepowania": "ZP/PN/48/2026",
+      "numer_ted": null,
+      "tytul": null
+    }
+  }
+}

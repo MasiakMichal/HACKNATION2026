@@ -1,0 +1,32 @@
+{
+  "mocodawca": [
+    {
+      "data": {
+        "imie_nazwisko": null,
+        "krs": "9995264890",
+        "nazwa": "Uldaris Automatyka S.A.",
+        "nip": "9997683341",
+        "typ": "osoba_prawna"
+      },
+      "podpisujacy": [
+        {
+          "imie_nazwisko": "Weronika Siedlecki",
+          "podpis": null
+        },
+        {
+          "imie_nazwisko": "Cezary Lipowczyk",
+          "podpis": null
+        }
+      ]
+    }
+  ],
+  "pelnomocnicy": [
+    {
+      "imie_nazwisko": "Halina Jabłończyk",
+      "pesel": null,
+      "nietypowe_dane": [
+        "nr wpisu na listę: WA 96379"
+      ]
+    }
+  ]
+}
